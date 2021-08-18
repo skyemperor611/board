@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tw.board.mapper.BoardMapper">
+ 
+    <select id="getList" resultType="boardVO">
+        SELECT bno,title,content,writer,date_format(regdate,'%Y-%m-%d %H:%i') AS REGDATE FROM mp_board order by bno desc
+    </select>
+    
+    <select id="getListPaging" resultType="boardVO">
+    
+        select * from (
+                select bno, title,content, writer, regdate  
+                from mp_board order by bno desc) as T1 
+        <!-- limit ((${pageNum}-1)*${amount}), ${amount} -->
+        limit #{skip},#{amount}
+    
+    </select>
+    
+    <!-- 게시물 총 갯수 -->
+    <select id="getTotal" resultType="int">
+        select count(*) from mp_board
+    </select>
+    
+     <!-- 게시물 총 갯수 -->
+    <select id="getPage" resultType="boardVO">
+        select * from mp_board where bno = #{bno}
+    </select>
+    
+    <!-- 게시판 등록 -->
+    <insert id="enroll">
+        INSERT INTO mp_board(title, content, writer) VALUES (#{title}, #{content}, #{writer})
+    </insert>
+    
+    <!-- 게시판 수정 -->
+    <update id="modify">
+        UPDATE mp_board SET TITLE=#{title}, CONTENT=#{content}, updateDate = NOW() WHERE bno = #{bno}
+    </update>
+ 
+</mapper>
