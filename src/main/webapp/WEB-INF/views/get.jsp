@@ -44,7 +44,11 @@
 	<a class="btn" id="list_btn">목록</a>
 </div>
 <form id="infoForm" action="/modify" method="get">
-	<input type="hidden" id="bno" name="bno" value="${pageInfo.bno }"/>
+	<input type="hidden" id="bno" name="bno" value='<c:out value="${pageInfo.bno }"></c:out>'/>
+	<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum }"></c:out>'/>
+	<input type="hidden" name="amount" value='<c:out value="${cri.amount }"></c:out>'/>
+	<input type="hidden" name="type" value="${cri.type }">
+	<input type="hidden" name="type" value="${cri.keyword }">
 </form>
 	<div class="input_wrap">
 	`	<input name="title" readonly="readonly" value='<c:out value="${pageInfo.title }"></c:out>'>
